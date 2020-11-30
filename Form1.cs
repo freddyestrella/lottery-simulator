@@ -68,7 +68,7 @@ namespace WindowsFormsApp1
         {
             int Min = max;
             int counter = 0;
-            Array.Sort(lines);
+         //   Array.Sort(lines);
             for (int index = 0; index < lines.Length; index++)
             {
                  
@@ -137,7 +137,12 @@ namespace WindowsFormsApp1
                if (!lot.CanRollAgain(toputput, inputlines, prices,lotteryPairs,  PairMax, PairMin))
                 {
 
+
+
+                    lot = new Lottery_C();
                     lot = null;
+
+
                     AddToOutputBox("", true);
                     AddToOutputBox("the game has ended");
                 }
@@ -152,9 +157,10 @@ namespace WindowsFormsApp1
 
             // todo: fix the buggies
 
-            
+
 
             // todo: set prices?
+            int manyWon;
             int money;//money you start with
             int PairSize;//how long is the lottery
             int rounds;//tries
@@ -168,6 +174,8 @@ namespace WindowsFormsApp1
             int[] numbers;
             int[] prices;
 
+
+            public Lottery_C() { }
             public Lottery_C(Tooutput tooutput, string[] inputs, string[] prices, int lotSize, int money, int rounds, int PairRandonMax, int PairRandonMin = 1)
             {
                 AddToOutputBox = tooutput;
@@ -298,7 +306,7 @@ namespace WindowsFormsApp1
                     if (index == matches)
                     {
                         pricesnotifier("you matched: "+ matches +" numbers and gained:", prices[index]);
-                        AddToOutputBox("index: " + index);
+                        
                         break;
                     }
                 }
@@ -310,7 +318,11 @@ namespace WindowsFormsApp1
                 AddToOutputBox(message + price+"$");
                 AddToOutputBox("your current money: " + money + "$ left");
                 AddToOutputBox("you current rounds: " + rounds + " left");
-
+                if (price > 0)
+                {
+                    this.manyWon++;
+                }
+                AddToOutputBox("games won: " + manyWon);
 
             }
 
@@ -332,7 +344,7 @@ namespace WindowsFormsApp1
             private void RollTheNumbers()
             {
                 Random Ran = new Random();
-                numbers = new int[PairSize];//resets numbers
+                numbers = new int[inputS.Length];//resets numbers
                 for (int i = 0; i < numbers.Length; i++)
                 {
 
@@ -348,7 +360,7 @@ namespace WindowsFormsApp1
             // sets inputS
             private void GetsInput(string[] inputST)
             {
-                inputS = new int[inputST.Length];//resets inputs
+                this.inputS = new int[inputST.Length];//resets inputs
 
                 for (int index = 0; index < inputS.Length; index++)
                 {
